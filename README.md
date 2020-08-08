@@ -4,7 +4,7 @@ Choux est un jeu pour Windows, inspiré du film français "La soupe aux choux", 
 
 ## Jouer
 
-* [Choux](https://github.com/Lob2018/Choux-Win/releases/) - Les différentes versions du fichier d'installation de Choux-v.v.v.Setup.exe (Windows).
+* [Choux](https://github.com/Lob2018/Choux-Win/releases/) - Les différentes versions du fichier d'installation de Choux-v.v.v.Setup.exe (dans assets).
 
 ### Conditions préalables
 
