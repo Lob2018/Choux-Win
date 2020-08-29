@@ -28,6 +28,7 @@ Installer le jeu avec le fichier exécutable (avec l'extension .exe)
 * Effets : Sample de Galiardin - Valse brune (1931)
 * Effets : Guazu - Guazu
 * Effets : GameAudio - UI SFX » Spacey 1up/Power up
+* Effets : InspectorJ - Chewing, Carrot, A
 * Effets : Mizuki s Last Chance - Yeah
 * Effets : Juhani Junkala - retro video game sound effects
 
