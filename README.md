@@ -27,7 +27,7 @@ Installer le jeu avec le fichier exécutable (avec l'extension .exe)
 * Effets : Spinningmerkaba - Reusenoise (DNB Mix)
 * Effets : Sample de Galiardin - Valse brune (1931)
 * Effets : Guazu - Guazu
-* Effets : GameAudio - UI SFX » Spacey 1up/Power up
+* Effets : Mrthenoronha - Extra Life 8 Bit
 * Effets : InspectorJ - Chewing, Carrot, A
 * Effets : Mizuki s Last Chance - Yeah
 * Effets : Juhani Junkala - retro video game sound effects
