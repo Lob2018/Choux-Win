@@ -31,7 +31,7 @@ Installer le jeu avec le fichier exécutable (avec l'extension .exe)
 * Effets : InspectorJ - Chewing, Carrot, A
 * Effets : qubodup - Cutting in the Kitchen » cuttingBread
 * Effets : Mizuki s Last Chance - Yeah
-* Effets : Juhani Junkala - retro video game sound effects
+* Effets : Electroviolence - Boiling Stew
 
 ## Auteur
 
