@@ -1,4 +1,4 @@
-# ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/chou%2B.png) Bienvenue sur le projet Choux-Win ! ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Lob2018/Choux-Win)(https://github.com/Lob2018/Choux-Win/releases/latest)
+# ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/chou%2B.png) Bienvenue sur le projet Choux-Win ! ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Lob2018/Choux-Win)
 
 # ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/Choux-Win-visuel.jpg)
 
@@ -13,8 +13,8 @@ Disponible pour Windows (application 64 bits)
 
 ### Installation
 
-Choisissez la dernière version du fichier d'installation de **Choux-v.v.v.Setup.exe** dans Assets :
-* **[Les versions de Choux](https://github.com/Lob2018/Choux-Win/releases/)**
+Dans Assets, téléchargez la dernière version du fichier **Choux-v.v.v.Setup.exe** :
+* **[La dernière version de Choux](https://github.com/Lob2018/Choux-Win/releases/latest)**
 
 Ce fichier n'a pas de certificat de signature de code (service payant), Microsoft Defender SmartScreen vous en informe lors de l'installation ; pour poursuivre l'installation cliquez sur **informations complémentaires**, puis **Exécuter quand même**.
 
