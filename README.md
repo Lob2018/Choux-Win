@@ -7,15 +7,16 @@ Choux est un jeu pour Windows, inspiré du film français "La soupe aux choux", 
 
 ## Jouer
 
-* [Choux](https://github.com/Lob2018/Choux-Win/releases/) - Les différentes versions du fichier d'installation de Choux-v.v.v.Setup.exe (dans Assets).
-
 ### Conditions préalables
 
 Disponible pour Windows
 
 ### Installation
 
-Installer le jeu avec le fichier exécutable (avec l'extension .exe)
+Choisissez la dernière version du fichier d'installation de Choux-v.v.v.Setup.exe dans Assets :
+* [Choux](https://github.com/Lob2018/Choux-Win/releases/)
+
+Ce fichier n'a pas de certificat de signature de code (service payant), Microsoft Defender SmartScreen vous en informe lors de l'installation ; pour poursuivre l'installation cliquez sur **informations complémentaires**, puis **Exécuter quand même**.
 
 ## Construit avec
 
