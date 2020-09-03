@@ -14,7 +14,7 @@ Disponible pour Windows
 ### Installation
 
 Choisissez la dernière version du fichier d'installation de **Choux-v.v.v.Setup.exe** dans Assets :
-* **[Choux](https://github.com/Lob2018/Choux-Win/releases/)**
+* **[Les version de Choux](https://github.com/Lob2018/Choux-Win/releases/)**
 
 Ce fichier n'a pas de certificat de signature de code (service payant), Microsoft Defender SmartScreen vous en informe lors de l'installation ; pour poursuivre l'installation cliquez sur **informations complémentaires**, puis **Exécuter quand même**.
 
