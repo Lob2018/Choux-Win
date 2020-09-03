@@ -9,7 +9,7 @@ Choux est un jeu pour Windows, inspiré du film français "La soupe aux choux", 
 
 ### Conditions préalables
 
-Disponible pour Windows x64
+Disponible pour Windows (application 64 bits)
 
 ### Installation
 
