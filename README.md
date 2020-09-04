@@ -19,7 +19,7 @@ Ce fichier n'a pas de certificat de signature de code (service payant), Microsof
 
 ### Périphériques
 
-Vous pouvez jouer au clavier ou à la souris (changement possible en cours de partie).
+Vous pouvez jouer au clavier ou à la souris (détection en cours de partie).
 
 ## Construit avec
 
