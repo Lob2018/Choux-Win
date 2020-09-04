@@ -17,6 +17,10 @@ Disponible pour Windows (application 64 bits)
 
 Ce fichier n'a pas de certificat de signature de code (service payant), Microsoft Defender SmartScreen vous en informe lors de l'installation ; pour poursuivre l'installation cliquez sur **informations complémentaires**, puis **Exécuter quand même**.
 
+### Périphériques
+
+Vous pouvez jouer au clavier ou à la souris (changement possible en cours de partie).
+
 ## Construit avec
 
 * Electron - Pour le projet complet
