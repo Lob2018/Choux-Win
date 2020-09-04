@@ -17,6 +17,8 @@ Disponible pour Windows (application 64 bits)
 
 Ce fichier n'a pas de certificat de signature de code (service payant), Microsoft Defender SmartScreen vous en informe lors de l'installation ; pour poursuivre l'installation cliquez sur **informations complémentaires**, puis **Exécuter quand même**.
 
+[Cet autre logiciel peut vous être utile pour vérifier l'intégrité du fichier téléchargé (voir les empreintes de la version).](https://www.clubic.com/telecharger-fiche56914-hashtab.html)
+
 ### Périphériques de jeu
 
 Vous pouvez jouer au clavier ou à la souris (détection automatique en cours de partie).
