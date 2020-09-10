@@ -38,6 +38,7 @@ Vous pouvez jouer au clavier ou à la souris (détection automatique en cours de
 * Effets : qubodup - Cutting in the Kitchen » cuttingBread
 * Effets : Mizuki s Last Chance - Yeah
 * Effets : Electroviolence - Boiling Stew
+* Effets : 14FPanskaZabova_Johana - 10_klaxon
 
 ## Auteur
 
