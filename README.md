@@ -21,7 +21,7 @@ Ce fichier n'a pas de certificat de signature de code (service payant), Microsof
 
 ### Périphériques de jeu
 
-Vous pouvez jouer au clavier ou à la souris (détection automatique en cours de partie).
+Vous pouvez jouer au clavier, à la souris, ou avec une manette de jeu (détection automatique en cours de partie).
 
 ## Construit avec
 
