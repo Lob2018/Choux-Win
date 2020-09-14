@@ -28,7 +28,7 @@ Vous pouvez jouer au clavier, à la souris, ou avec une manette de jeu (détecti
 * Electron - Pour le projet complet
 * [Font Awesome](https://fontawesome.com/v4.7.0/) - Pour les icônes
 * [Google Fonts](https://fonts.google.com/) - Pour les polices
-* [Rawpixel](https://www.rawpixel.com) et [Unsplash](https://unsplash.com/) - Pour les images **CC0**
+* [Rawpixel](https://www.rawpixel.com) et [Unsplash](https://unsplash.com/) - Pour les images sous licence CC0
 * Musique : Cybersdf - Dolling
 * Effets : Spinningmerkaba - Reusenoise (DNB Mix)
 * Effets : Sample de Galiardin - Valse brune (1931)
