@@ -40,6 +40,7 @@ Vous pouvez jouer au clavier, à la souris, ou avec une manette de jeu (détecti
 * Effets : Electroviolence - Boiling Stew
 * Effets : 14FPanskaZabova_Johana - 10_klaxon
 * Effets : Omar Alvarado - Car travel Accident
+* Effets : Rocker418 - Time Machine
 
 ## Auteur
 
