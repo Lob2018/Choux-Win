@@ -1,10 +1,7 @@
 # [![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/chou%2B.png)](https://github.com/Lob2018/Choux-Win/releases/latest) Bienvenue sur le projet Choux-Win ! [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Lob2018/choux-Win?color=%232c974b&logo=Github&style=plastic)](https://github.com/Lob2018/Choux-Win/releases/latest)
 
 
-# ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/Choux-Win-visuel.jpg)
-
 # [![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/Choux-Win-visuel.jpg)](https://github.com/Lob2018/Choux-Win/releases/latest)
-
 
 
 Choux est un jeu pour Windows, inspiré du film français "La soupe aux choux", réalisé par Jean Girault, sorti en 1981. Le projet JavaScript a démarré au mois de mai 2018, et la première version pour Windows est du mois d'août 2020.
