@@ -1,4 +1,4 @@
-# ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/chou%2B.png) Bienvenue sur le projet Choux-Win ! ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Lob2018/choux-Win?color=%232c974b&logo=Github&style=plastic)
+# ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/chou%2B.png) Bienvenue sur le projet Choux-Win ! ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Lob2018/choux-Win?color=%232c974b&logo=Github&style=plastic?link=https://github.com/Lob2018/Choux-Win/releases/latest)
 
 # ![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/Choux-Win-visuel.jpg)
 
