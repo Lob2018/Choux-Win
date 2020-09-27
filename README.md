@@ -10,7 +10,7 @@
 
 ### Conditions préalables
 
-**Disponible pour Windows 64 bits (application 64 bits).**
+Disponible pour **Windows 64 bits** (application 64 bits).
 
 ### Installation
 
