@@ -4,7 +4,7 @@
 # [![alt HATCLIC-Choux](https://raw.githubusercontent.com/Lob2018/Choux-Win/master/Choux-Win-visuel.jpg)](https://github.com/Lob2018/Choux-Win/releases/latest)
 
 
-Choux est un jeu pour Windows 64 bits, inspiré du film français "La soupe aux choux", réalisé par Jean Girault, sorti en 1981. Le projet JavaScript a démarré au mois de mai 2018, et la première version pour Windows est du mois d'août 2020.
+Choux est un jeu pour Windows 64 bits, inspiré du film français "La soupe aux choux", réalisé par Jean Girault, sorti en 1981. Le projet JavaScript a démarré au mois de mai 2018, et la première version pour Windows 64 bits est du mois d'août 2020.
 
 ## Jouer
 
