@@ -10,7 +10,7 @@ Choux est un jeu pour Windows 64 bits, inspiré du film français "La soupe aux 
 
 ### Conditions préalables
 
-Disponible pour Windows 64 bits (application 64 bits).
+**Disponible pour Windows 64 bits (application 64 bits).**
 
 ### Installation
 
