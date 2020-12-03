@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="
+  default-src 'none'; 
+  media-src 'self';
+  script-src 'nonce-inlMain' 'nonce-inlAudio' 'nonce-inlTrad' 'nonce-inlPlateau' 'nonce-inlElement' 'nonce-inlPerso' 'nonce-inlChou' 'nonce-inlPain' 'nonce-inlchouBacalan' 'nonce-inlMaire' 'nonce-inlSat' 'nonce-inlTraf' 'nonce-inlLim' 'nonce-inlAcc' 'nonce-inlRet' 'nonce-inlJeu'; 
+  connect-src 'self'; 
+  img-src 'self'; 
+  style-src 'self';
+  font-src 'self';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CHOUX | HATCLIC.FR</title>
+    <link rel="icon" href="img/chou.ico" />
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <i id="fermer" class="fa" aria-hidden="true" title="Quitter le jeu">&#xf2d3;</i>
+    <i id="win" class="fa" aria-hidden="true" title="Réduire et retourner à Windows">&#xf17a;</i>
+    <i id="musOff" class="fa" aria-hidden="true" title="Couper la musique">&#xf001;</i>
+    <i id="musOn" class="fa" aria-hidden="true" title="Jouer la musique">&#xf001;</i>
+    <i id="volOn" class="fa" aria-hidden="true" title="Activer l'audio">&#xf026;</i>
+    <i id="volOff" class="fa" aria-hidden="true" title="Désactiver l'audio">&#xf028;</i>
+    <i id="maj" class="fa" aria-hidden="true" title="Une nouvelle version est disponible au téléchargement">&#xf021;</i>
+    <i id="trad" class="faTxt" aria-hidden="true" title=""></i>
+    <i id="effScores" class="fa" aria-hidden="true" title="">&#xf0e7;</i>
+    <i id="copy" class="fa" aria-hidden="true" title="">&#xf1f9;</i>
+
+    <progress id="progression" max="100" value="0"></progress>
+
+    <div id="chargement" class="loader loader--style1" title="">
+        <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+      <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+        s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+        c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+            <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+        C22.32,8.481,24.301,9.057,26.013,10.047z">
+        <animateTransform attributeType="xml"
+                          attributeName="transform"
+                          type="rotate"
+                          from="0 20 20"
+                          to="360 20 20"
+                          dur="0.5s"
+                          repeatCount="indefinite"/>
+        </path>
+      </svg>
+    </div>
+    <script nonce="inlMain" src="outils/Main.js"></script>
+    <script nonce="inlAudio" src="outils/Audio.js"></script>
+    <script nonce="inlTrad" src="outils/Traduction.js"></script>
+    <script nonce="inlPlateau" src="outils/Plateau.js"></script>
+    <script nonce="inlElement" src="outils/Element.js"></script>
+    <script nonce="inlPerso" src="outils/PersoEl.js"></script>
+    <script nonce="inlChou" src="outils/ChouEl.js"></script>
+    <script nonce="inlPain" src="outils/PainEl.js"></script>
+    <script nonce="inlchouBacalan" src="outils/ChouBacalanEl.js"></script>
+    <script nonce="inlMaire" src="outils/MaireEl.js"></script>
+    <script nonce="inlSat" src="outils/SatEl.js"></script>
+    <script nonce="inlTraf" src="outils/TraficEl.js"></script>
+    <script nonce="inlLim" src="outils/LimaceEl.js"></script>
+    <script nonce="inlAcc" src="outils/AccordeonEl.js"></script>
+    <script nonce="inlRet" src="outils/RemonteTpsEl.js"></script>
+    <script nonce="inlJeu" src="outils/Jeu.js"></script>
+</body>
+
+
+
+</html>
