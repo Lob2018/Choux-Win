@@ -146,7 +146,7 @@ class Main {
      * @param QteMaires La quantité de maires à charger
      */
     init(tps0, score0, QteChoux, QteMaires) {
-        this.ttImages = 32;
+        this.ttImages = 34;
         this.fps;
         this.police;
         this.ScaledPolice;
@@ -256,6 +256,7 @@ class Main {
     }
 
     chargementImage(pct) {
+        window.api.send('envoi-splash-fin');
         this.mijotage.innerHTML = this.trad.chargementPct[this.langue] + pct + "%";
     }
 

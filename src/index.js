@@ -7,6 +7,7 @@ const path = require('path');
 const { request } = require("@octokit/request");
 
 let mainWindow = null;
+let splash = null;
 let urlUpdate = null;
 
 // OLD // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -74,6 +75,26 @@ function handleSquirrelEvent() {
 /// FIN SQUIRREL EVENT
 
 const createWindow = () => {
+
+    //SPLASH
+    splash = new BrowserWindow({
+        show: false,
+        webPreferences: {
+            worldSafeExecuteJavaScript: true,
+            nodeIntegration: false, // is default value after Electron v5
+            contextIsolation: true, // protect against prototype pollution
+            enableRemoteModule: false, // turn off remote
+        },
+        width: 500,
+        height: 300,
+        frame: false,
+        icon: __dirname + '/img/chou.ico',
+        backgroundColor: '#000000'
+    });
+    splash.loadFile(__dirname + '/img/splash.gif');
+    splash.setAlwaysOnTop(true, 'screen');
+    splash.show();
+
     // fenetre principale
     mainWindow = new BrowserWindow({
         show: false,
@@ -94,7 +115,6 @@ const createWindow = () => {
     mainWindow.minimize();
 
 
-
     // // DEV FENETRE PRINCIPALE
     // mainWindow.setAlwaysOnTop(true, 'screen');
     // mainWindow.show();
@@ -104,31 +124,10 @@ const createWindow = () => {
     // mainWindow.setResizable(false);
     // mainWindow.setMovable(false);
     // mainWindow.loadFile(__dirname + '/index.html');
+    // FIN DEV
 
     //PROD
-    let splash = new BrowserWindow({
-        show: false,
-        webPreferences: {
-            worldSafeExecuteJavaScript: true,
-            nodeIntegration: false, // is default value after Electron v5
-            contextIsolation: true, // protect against prototype pollution
-            enableRemoteModule: false, // turn off remote
-        },
-        width: 500,
-        height: 300,
-        frame: false,
-        backgroundColor: '#000000',
-        parent: mainWindow
-    });
-    splash.loadFile(__dirname + '/img/splash.gif');
-    splash.setAlwaysOnTop(true, 'screen');
-    splash.show();
-    splash.setAlwaysOnTop(false, 'screen');
-
-
-
     setTimeout(function() {
-        splash.destroy();
         mainWindow.loadFile(__dirname + '/index.html');
         mainWindow.maximize();
         mainWindow.setResizable(false);
@@ -137,7 +136,11 @@ const createWindow = () => {
         mainWindow.show();
         mainWindow.setAlwaysOnTop(false, 'screen');
     }, 1234);
+    // FIN PROD
 
+    ipcMain.on('envoi-splash-fin', function() {
+        splash.destroy();
+    })
     ipcMain.on('envoi-fermer', function() {
         splash.isDestroyed ? '' : splash.close();
         mainWindow.close();
