@@ -146,7 +146,7 @@ class Main {
      * @param QteMaires La quantité de maires à charger
      */
     init(tps0, score0, QteChoux, QteMaires) {
-        this.ttImages = 34;
+        this.ttImages = 36;
         this.fps;
         this.police;
         this.ScaledPolice;
