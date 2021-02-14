@@ -216,6 +216,8 @@ class Main {
         // BLOQUER LE TEMPS QUAND COPYRIGHT AFFICHÉ
         this.tpsBloque = -1;
         this.charge();
+        // PROGRESSION
+        this.progression = 1;
     }
 
     /**
@@ -813,7 +815,7 @@ class Main {
     ajouter() {
         this.tourne = true;
         this.audio.getScore();
-        return (this.scoreAffiche += 20).toString();
+        return (this.scoreAffiche += 50).toString();
     }
 
     /**
@@ -846,8 +848,10 @@ class Main {
         let max = this.plateau.getWidth() / (32 + this.ratio);
         if (this.QteMaires >= max) {
             el.setAttribute('value', 100);
+            this.progression = 100;
         } else {
-            el.setAttribute('value', Math.floor((this.QteMaires / (this.plateau.getWidth() / (32 + this.ratio))) * 100));
+            this.progression = Math.floor((this.QteMaires / (this.plateau.getWidth() / (32 + this.ratio))) * 100)
+            el.setAttribute('value', this.progression);
         }
     }
 
@@ -1122,19 +1126,18 @@ class Main {
      * @param aAjouter Permet d'ajouter une valeur au score
      */
     addScore(aAjouter) {
+        let progression = this.progression / 30;
+        progression < 1 ? progression = 1 : progression;
         let sc = parseInt(this.score, 10);
-        sc = sc + aAjouter;
+        sc = sc + parseInt(aAjouter * progression);
         this.score = sc.toString();
-
         if (sc > this.lgScore) {
-            this.lgScore += 2500;
+            this.lgScore += 20000;
             this.audio.getOk();
         }
-
         sc = parseInt(this.scoreTemporaire, 10);
         sc = sc + aAjouter;
         this.scoreTemporaire = sc.toString();
-
     }
 
     /**
