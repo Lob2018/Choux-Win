@@ -55,7 +55,9 @@ class Plateau {
             "Graham Holtshausen - From Lake Tekapo in New Zealand",
             "NASA - Sirenum Fossae, Mars",
             "Genty - Vortex",
-            "WikiImages - Nébuleuse d'Orion"
+            "WikiImages - Nébuleuse d'Orion",
+            "Maria Vojtovicova - blue and white light in dark room",
+            "Tengyart - Andromeda galaxy"
         ];
     }
 
