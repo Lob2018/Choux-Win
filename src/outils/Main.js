@@ -47,22 +47,7 @@ class Main {
             o.infoMeilleurScore();
         }, false);
 
-        /**
-         * Bouton effacer les scores
-         */
-        document.getElementById('effScores').addEventListener("click", function(evt) {
-            try {
-                if (typeof localStorage === 'undefined') {} else {
-                    window.localStorage.clear();
-                    o.setLangue(o.langue);
-                }
-            } catch (e) {} finally {
-                let eff = document.getElementById('effScores');
-                eff.classList.remove("woow");
-                eff.offsetWidth;
-                eff.classList.add("woow");
-            }
-        })
+
 
         /**
          * Bouton crédits
@@ -119,6 +104,28 @@ class Main {
             trad.classList.add("woow");
         })
 
+        /**
+         * Bouton effacer les scores
+         */
+        document.getElementById('effScores').addEventListener("click", function(evt) {
+            try {
+                if (typeof localStorage === 'undefined') {} else {
+                    //window.localStorage.clear();
+                    o.nomMeilleur = '';
+                    window.localStorage.setItem("choux", 0);
+                    window.localStorage.setItem("meilleur", "");
+                    o.setLangue(o.langue);
+                }
+            } catch (e) {} finally {
+                let eff = document.getElementById('effScores');
+                eff.classList.remove("woow");
+                eff.offsetWidth;
+                eff.classList.add("woow");
+
+                o.invert();
+            }
+        })
+
 
         /**
          * INITIALISER
@@ -146,7 +153,8 @@ class Main {
      * @param QteMaires La quantité de maires à charger
      */
     init(tps0, score0, QteChoux, QteMaires) {
-        this.ttImages = 38;
+        // Total des images
+        this.ttImages = 44;
         this.fps;
         this.police;
         this.ScaledPolice;
@@ -218,6 +226,8 @@ class Main {
         this.charge();
         // PROGRESSION
         this.progression = 1;
+
+
     }
 
     /**
@@ -276,7 +286,7 @@ class Main {
          * LA TAILLE DE LA POLICE
          *
          */
-        this.police = this.w / 14;
+        this.police = this.w / 18;
         /**
          *  LE RATIO (PIXELS A AJOUTER)
          */
@@ -339,6 +349,8 @@ class Main {
         ele.style.left = this.cRect.left + 10 + 'px';
         // EFFET
         ele.classList.add("wow");
+
+
     }
 
     /**
@@ -735,7 +747,7 @@ class Main {
                 this.ctx.fillText("   \uf1b1", this.police * 4 + lineW, (this.hero.getH() * 2) - lineH / 8);
             this.ctx.restore();
             // CHANGER LA FONTE
-            this.ctx.font = (this.police).toString() + "px Amatic";
+            this.ctx.font = (this.police).toString() + "px Choux2022";
 
             // INTRO OU GAGNE OU PERDU? + MEMORISATION
             if (this.NbreChoux === 0) {
@@ -747,11 +759,11 @@ class Main {
                 this.ctx.fillText(this.getStorage(), this.w / 2, (this.h / 2.5) + lineHeight);
                 if (this.getStorage().startsWith(this.trad.votreRecordEst[this.langue])) {
                     if (this.meilleur) {} else {
-                        this.nomMeilleur = '';
+                        if (this.scoreAffiche == parseInt(this.score, 10)) this.nomMeilleur = '';
                         this.meilleur = true;
                     }
                     this.animerTxtNom(lineHeight);
-                    this.ctx.font = (this.police).toString() + "px Amatic";
+                    this.ctx.font = (this.police).toString() + "px Choux2022";
                     this.ctx.fillText(this.nomMeilleur, this.w / 2, (this.h / 2.5) + lineHeight * 4);
 
                 } else this.meilleur = false;
@@ -803,9 +815,9 @@ class Main {
                 this.ctx.drawImage(this.hero.getImagePos(3), this.hero.getPositionX(), this.hero.getPositionY(), this.hero.getW(), this.hero.getH());
                 this.hero.sourisContenu();
             }
-            this.ctx.font = (this.police / 2).toString() + "px Amatic";
+            this.ctx.font = (this.police / 2).toString() + "px Choux2022";
             this.ctx.fillText(this.plateau.getCopy(this.trad.HtmlCopy[this.langue]), this.w / 2, this.h - this.hero.getH());
-            this.ctx.font = (this.police).toString() + "px Amatic";
+            this.ctx.font = (this.police).toString() + "px Choux2022";
         }
     }
 
@@ -833,8 +845,8 @@ class Main {
     animerTxtScore() {
         this.ScaledPolice > this.police * 1.2 ? this.ScaledPolice = this.police : this.ScaledPolice += 2;
         this.scoreAffiche > parseInt(this.score - 100, 10) ?
-            this.ctx.font = (this.ScaledPolice).toString() + "px Amatic" :
-            this.ctx.font = (this.police).toString() + "px Amatic";
+            this.ctx.font = (this.ScaledPolice).toString() + "px Choux2022" :
+            this.ctx.font = (this.police).toString() + "px Choux2022";
         return this.ctx.fillText((this.scoreAffiche < parseInt(this.score, 10) ? this.ajouter() : this.afficher()), this.police * 4, this.hero.getH() * 2);
     }
 
@@ -906,7 +918,7 @@ class Main {
             this.ScaledPoliceNom += 0.1;
             if (this.ScaledPoliceNom > this.police * 1.05) this.ScaledPoliceNomSens = 0;
         }
-        this.ctx.font = (this.ScaledPoliceNom).toString() + "px Amatic";
+        this.ctx.font = (this.ScaledPoliceNom).toString() + "px Choux2022";
         return this.ctx.fillText(this.trad.saisissezVotreNom[this.langue], this.w / 2, (this.h / 2.5) + lineHeight * 3);
     }
 
@@ -921,7 +933,7 @@ class Main {
                 o.affMsgRegles = 1;
             }, 3000);
         if (this.affMsgRegles === 0) {
-            let lineHeight = this.ctx.measureText('\uf150').width * 1.2;
+            let lineHeight = this.ctx.measureText('\uf150').width * 1.7;
             this.ctx.fillText(this.trad.perdu[this.langue], this.w / 2, this.h / 2);
             this.ctx.fillText(this.getStorage(), this.w / 2, (this.h / 2) + lineHeight * 2);
             if (this.getStorage().startsWith(this.trad.leRecordEst[this.langue])) {
@@ -943,7 +955,7 @@ class Main {
         this.ctx.fillText('\uf11b', (this.w / 2), this.h - this.hero.getH() - lineHeightAwe * 2.4);
         this.ctx.font = (this.police).toString() + "px FontAwesome";
         this.ctx.fillText('\uf245', (this.w / 2) + lineHeightAwe * 2, this.h - this.hero.getH() - lineHeightAwe * 2.45);
-        this.ctx.font = (this.police).toString() + "px Amatic";
+        this.ctx.font = (this.police).toString() + "px Choux2022";
     }
 
     /**
@@ -1104,7 +1116,7 @@ class Main {
      * AFFICHER LES MESSAGES
      */
     leTexte() {
-        this.ctx.font = (this.police).toString() + "px Amatic, cursive";
+        this.ctx.font = (this.police).toString() + "px Choux2022, cursive";
 
         // CRÉER LE GRADIENT
         let gradient = this.ctx.createLinearGradient(0, 0, this.plateau.getWidth(), 0);
@@ -1583,12 +1595,15 @@ class Main {
      */
     waouh() {
         this.plateau.getCanvas().classList.remove("rebond");
+        this.plateau.getCanvas().classList.remove("invert");
         this.plateau.getCanvas().classList.remove("intro");
         this.plateau.getCanvas().classList.remove("wow");
         this.plateau.getCanvas().classList.remove("perdu");
         this.plateau.getCanvas().classList.remove("extra");
         this.plateau.getCanvas().offsetWidth;
         this.plateau.getCanvas().classList.add("wow");
+
+
         clearInterval(this.fps);
         let i = this.plateau.getIFond();
         let j = i;
@@ -1599,10 +1614,14 @@ class Main {
         this.boucle(this);
     }
 
+
+
     /**
      * LANCER L'EFFET CSS PERDU
      */
     perdu() {
+        this.plateau.getCanvas().classList.remove("wow");
+        this.plateau.getCanvas().classList.remove("invert");
         this.plateau.getCanvas().classList.remove("extra");
         this.plateau.getCanvas().classList.remove("rebond");
         this.plateau.getCanvas().classList.remove("intro");
@@ -1615,6 +1634,8 @@ class Main {
      * LANCER L'EFFET CSS TEMPS ÉCOULÉ
      */
     timeup() {
+        this.plateau.getCanvas().classList.remove("wow");
+        this.plateau.getCanvas().classList.remove("invert");
         this.plateau.getCanvas().classList.remove("extra");
         this.plateau.getCanvas().classList.remove("rebond");
         this.plateau.getCanvas().classList.remove("intro");
@@ -1627,6 +1648,8 @@ class Main {
      * LANCER L'EFFET CSS EXTRA CHOU
      */
     extra() {
+        this.plateau.getCanvas().classList.remove("wow");
+        this.plateau.getCanvas().classList.remove("invert");
         this.plateau.getCanvas().classList.remove("extra");
         this.plateau.getCanvas().classList.remove("rebond");
         this.plateau.getCanvas().classList.remove("intro");
@@ -1635,6 +1658,19 @@ class Main {
         this.plateau.getCanvas().classList.add("extra");
     }
 
+    /**
+     * LANCER L'EFFET INVERT
+     */
+    invert() {
+        this.plateau.getCanvas().classList.remove("wow");
+        this.plateau.getCanvas().classList.remove("invert");
+        this.plateau.getCanvas().classList.remove("extra");
+        this.plateau.getCanvas().classList.remove("rebond");
+        this.plateau.getCanvas().classList.remove("intro");
+        this.plateau.getCanvas().classList.remove("perdu");
+        this.plateau.getCanvas().offsetWidth;
+        this.plateau.getCanvas().classList.add("invert");
+    }
 
     /***
      * Rendre invincible 2.345 secondes

@@ -35,10 +35,18 @@ progress::-webkit-progress-value {
     background: linear-gradient(to right, #56ff6d, #cae842, #ffb057);
 }
 
-@font-face {
-    font-family: Amatic;
+
+/* @font-face {
+    font-family: Choux2022;
     src: url(fonts/woff/amaticsc-bold-webfont.woff) format("woff"), url(fonts/woff2/amaticsc-bold-webfont.woff2) format("woff2");
     font-weight: 700;
+    font-style: normal
+} */
+
+@font-face {
+    font-family: Choux2022;
+    src: url(fonts/woff/bangers-regular-webfont.woff) format("woff"), url(fonts/woff2/bangers-regular-webfont.woff2) format("woff2");
+    font-weight: 400;
     font-style: normal
 }
 
@@ -281,8 +289,9 @@ i {
 }
 
 .faTxt {
-    font-family: Amatic, cursive;
+    font-family: Choux2022, cursive;
     font-size: 14px/1;
+    width: 1.5em!important;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale
@@ -507,7 +516,7 @@ canvas,
 html {
     padding: 0;
     margin: 0;
-    font-family: Amatic, cursive
+    font-family: Choux2022, cursive
 }
 
 #jeux {
@@ -875,5 +884,78 @@ body {
     100% {
         -webkit-transform: translateX(-1px) rotate(0);
         transform: translateX(-1px) rotate(0)
+    }
+}
+
+.invert {
+    -webkit-animation-name: raz;
+    animation-name: raz;
+    -webkit-animation-duration: .75s;
+    animation-duration: .75s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1
+}
+
+@-webkit-keyframes raz {
+    10%,
+    30% {
+        filter: invert(0%);
+        -webkit-filter: invert(0%);
+    }
+    20%,
+    40% {
+        filter: invert(25%);
+        -webkit-filter: invert(25%);
+    }
+    50%,
+    70% {
+        filter: invert(50%);
+        -webkit-filter: invert(50%);
+    }
+    60%,
+    80% {
+        filter: invert(75%);
+        -webkit-filter: invert(75%);
+    }
+    90% {
+        filter: invert(100%);
+        -webkit-filter: invert(100%);
+    }
+    100% {
+        filter: invert(0%);
+        -webkit-filter: invert(0%);
+    }
+}
+
+@keyframes raz {
+    10%,
+    30% {
+        filter: invert(0%);
+        -webkit-filter: invert(0%);
+    }
+    20%,
+    40% {
+        filter: invert(25%);
+        -webkit-filter: invert(25%);
+    }
+    50%,
+    70% {
+        filter: invert(50%);
+        -webkit-filter: invert(50%);
+    }
+    60%,
+    80% {
+        filter: invert(75%);
+        -webkit-filter: invert(75%);
+    }
+    90% {
+        filter: invert(100%);
+        -webkit-filter: invert(100%);
+    }
+    100% {
+        filter: invert(0%);
+        -webkit-filter: invert(0%);
     }
 }

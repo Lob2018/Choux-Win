@@ -118,8 +118,8 @@ trad = {
         "FR": "clic au centre de l'écran ou espace"
     },
     "cliquezAuCentr": {
-        "EN": "click in the center of the screen or press",
-        "FR": "cliquez au centre de l\'écran ou appuyez"
+        "EN": "click in the center of the screen or space",
+        "FR": "cliquez au centre de l\'écran ou espace"
     },
     "saisissezVotreNom": {
         "EN": "Enter your name without spaces",

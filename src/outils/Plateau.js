@@ -57,7 +57,13 @@ class Plateau {
             "Genty - Vortex",
             "WikiImages - Nébuleuse d'Orion",
             "Maria Vojtovicova - blue and white light in dark room",
-            "Tengyart - Andromeda galaxy"
+            "Tengyart - Andromeda galaxy",
+            "NASA - Jupiter blues",
+            "NASA - One of the largest ever released of a star-forming region",
+            "NASA - Composite image of NGC 4258",
+            "NASA - Heart of Lagoon Nebula",
+            "NASA - A nebula",
+            "NASA - HD 189733b"
         ];
     }
 

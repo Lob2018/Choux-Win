@@ -77,23 +77,23 @@ function handleSquirrelEvent() {
 const createWindow = () => {
 
     //SPLASH
-    splash = new BrowserWindow({
-        show: false,
-        webPreferences: {
-            worldSafeExecuteJavaScript: true,
-            nodeIntegration: false, // is default value after Electron v5
-            contextIsolation: true, // protect against prototype pollution
-            enableRemoteModule: false, // turn off remote
-        },
-        width: 500,
-        height: 300,
-        frame: false,
-        icon: __dirname + '/img/chou.ico',
-        backgroundColor: '#000000'
-    });
-    splash.loadFile(__dirname + '/img/splash.gif');
-    splash.setAlwaysOnTop(true, 'screen');
-    splash.show();
+    // splash = new BrowserWindow({
+    //     show: false,
+    //     webPreferences: {
+    //         worldSafeExecuteJavaScript: true,
+    //         nodeIntegration: false, // is default value after Electron v5
+    //         contextIsolation: true, // protect against prototype pollution
+    //         enableRemoteModule: false, // turn off remote
+    //     },
+    //     width: 500,
+    //     height: 300,
+    //     frame: false,
+    //     icon: __dirname + '/img/chou.ico',
+    //     backgroundColor: '#000000'
+    // });
+    // splash.loadFile(__dirname + '/img/splash.gif');
+    // splash.setAlwaysOnTop(true, 'screen');
+    // splash.show();
 
     // fenetre principale
     mainWindow = new BrowserWindow({
@@ -124,25 +124,25 @@ const createWindow = () => {
     // mainWindow.setResizable(false);
     // mainWindow.setMovable(false);
     // mainWindow.loadFile(__dirname + '/index.html');
-    // FIN DEV
+    // // FIN DEV
 
     //PROD
-    setTimeout(function() {
-        mainWindow.loadFile(__dirname + '/index.html');
-        mainWindow.maximize();
-        mainWindow.setResizable(false);
-        mainWindow.setMovable(false);
-        mainWindow.setAlwaysOnTop(true, 'screen');
-        mainWindow.show();
-        mainWindow.setAlwaysOnTop(false, 'screen');
-    }, 1234);
+    // setTimeout(function() {
+    mainWindow.loadFile(__dirname + '/index.html');
+    mainWindow.maximize();
+    mainWindow.setResizable(false);
+    mainWindow.setMovable(false);
+    mainWindow.setAlwaysOnTop(true, 'screen');
+    mainWindow.show();
+    mainWindow.setAlwaysOnTop(false, 'screen');
+    // }, 500);
     // FIN PROD
 
     ipcMain.on('envoi-splash-fin', function() {
-        splash.destroy();
+        // splash.destroy();
     })
     ipcMain.on('envoi-fermer', function() {
-        splash.isDestroyed ? '' : splash.close();
+        // splash.isDestroyed ? '' : splash.close();
         mainWindow.close();
     })
     ipcMain.on('envoi-reduire', function() {
