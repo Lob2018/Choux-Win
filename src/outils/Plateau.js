@@ -12,7 +12,7 @@ class Plateau {
         this.width = width;
         this.height = height;
         this.cptImages = 0;
-        this.cache = 0;
+        // this.cache = 0;
         this.isLoading = true;
 
         /**
@@ -157,10 +157,10 @@ class Plateau {
      * RÉCUPÉRER L'IMAGE + CACHE
      */
     getFond() {
-        if (this.cache != this.copy.length) {
-            this.cache++;
-            return this.fond[this.cache - 1];
-        }
+        // if (this.cache != this.copy.length) {
+        //     this.cache++;
+        //     return this.fond[this.cache - 1];
+        // }
         this.isLoading = false;
         return this.fond[this.iFond];
     }

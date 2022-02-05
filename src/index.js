@@ -1,6 +1,3 @@
-// optimiser avec le cache via l'API de V8
-require('v8-compile-cache');
-
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 
@@ -99,6 +96,7 @@ const createWindow = () => {
     mainWindow = new BrowserWindow({
         show: false,
         webPreferences: {
+            sandbox: true,
             worldSafeExecuteJavaScript: true,
             nodeIntegration: false, // is default value after Electron v5
             contextIsolation: true, // protect against prototype pollution

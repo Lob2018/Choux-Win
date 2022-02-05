@@ -1046,9 +1046,11 @@ class Main {
                 // COLLISION TROU DE VERRE
                 if (this.niveau[i].type() === "trouDeVerre") {
                     this.niveau[i].setVisible(false);
+                    this.invert();
                     this.plateau.setFond(this.getRandomInt(this.ttImages));
                     // AUDIO
                     this.audio.getTrouDeVerre();
+
                 } else if (this.niveau[i].type() === "chou") {
                     this.niveau[i].setVisible(false);
                     this.NbreChoux -= 1;
