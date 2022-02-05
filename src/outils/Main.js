@@ -54,11 +54,13 @@ class Main {
          */
         this.copy = 1;
         document.getElementById('copy').addEventListener("click", function(event) {
-            let cred = document.getElementById('copy');
-            cred.classList.remove("woow");
-            cred.offsetWidth;
-            cred.classList.add("woow");
-            o.copy == 0 ? o.copy = 1 : o.copy = 0;
+            if (o.plateau.isLoading) {} else {
+                let cred = document.getElementById('copy');
+                cred.classList.remove("woow");
+                cred.offsetWidth;
+                cred.classList.add("woow");
+                o.copy == 0 ? o.copy = 1 : o.copy = 0;
+            }
         }, false);
 
         /**
