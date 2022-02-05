@@ -370,6 +370,24 @@ class Audio {
     }
 
     /**
+     * DÉFINIR TROU DE VERRE
+     * @param {Le chemin relatif vers le son Trou de verre} srcTrouDeVerre
+     */
+    setTrouDeVerre(srcTrouDeVerre) {
+        if (document.getElementById('sonTrouDeVerre') == undefined) {
+            this.srcTrouDeVerre = srcTrouDeVerre;
+            this.sonTrouDeVerre = document.createElement('audio');
+            this.sonTrouDeVerre.setAttribute('id', "sonTrouDeVerre");
+
+            this.creerSrc(srcTrouDeVerre, this.sonTrouDeVerre);
+
+            document.body.appendChild(this.sonTrouDeVerre);
+        } else {
+            this.sonOk.setAttribute('src', this.srcTrouDeVerre);
+        }
+    }
+
+    /**
      * LIRE LA MUSIQUE
      */
     getMusique() {
@@ -469,6 +487,13 @@ class Audio {
      */
     getRemonte() {
         this.sonRemonte.play();
+    }
+
+    /**
+     * LIRE LE SON DU TROU DE VERRE
+     */
+    getTrouDeVerre() {
+        this.sonTrouDeVerre.play();
     }
 
     /**

@@ -42,6 +42,7 @@ Vous pouvez jouer au clavier, à la souris, ou avec une manette de jeu (détecti
 * Effets : 14FPanskaZabova_Johana - 10_klaxon
 * Effets : Omar Alvarado - Car travel Accident
 * Effets : Rocker418 - Time Machine
+* Effets : bretn - TimeMachine
 
 ## Auteur
 

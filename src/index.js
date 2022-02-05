@@ -126,8 +126,9 @@ const createWindow = () => {
     // mainWindow.loadFile(__dirname + '/index.html');
     // // FIN DEV
 
-    //PROD
+
     // setTimeout(function() {
+    //PROD
     mainWindow.loadFile(__dirname + '/index.html');
     mainWindow.maximize();
     mainWindow.setResizable(false);
@@ -135,8 +136,9 @@ const createWindow = () => {
     mainWindow.setAlwaysOnTop(true, 'screen');
     mainWindow.show();
     mainWindow.setAlwaysOnTop(false, 'screen');
-    // }, 500);
     // FIN PROD
+    // }, 500);
+
 
     ipcMain.on('envoi-splash-fin', function() {
         // splash.destroy();

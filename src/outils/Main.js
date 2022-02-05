@@ -179,6 +179,7 @@ class Main {
         this.h;
         this.car;
         this.vite = false;
+        this.loading = '. ';
         // 3 ESSAIS
         this.vies = 2;
         this.niveau = new Array();
@@ -262,6 +263,8 @@ class Main {
         this.audio.setKlaxon(["./media/klaxon.ogg", "./media/klaxon.mp3"]);
         this.audio.setAccident(["./media/accident.ogg", "./media/accident.mp3"]);
         this.audio.setRemonte(["./media/remonte.ogg", "./media/remonte.mp3"]);
+        this.audio.setTrouDeVerre(["./media/trouDeVerre.ogg", "./media/trouDeVerre.mp3"]);
+
 
         this.plateau = new Plateau(window.innerWidth - this.padding * 2, window.innerHeight - this.padding * 2)
         this.plateau.init(this, this.getRandomInt(this.ttImages), this.ttImages);
@@ -349,8 +352,6 @@ class Main {
         ele.style.left = this.cRect.left + 10 + 'px';
         // EFFET
         ele.classList.add("wow");
-
-
     }
 
     /**
@@ -459,15 +460,20 @@ class Main {
             let sats = this.getRandomInt(2);
             let limaces; // À PARTIR DE 9500 -> LIMACES
             this.enrichissement > 9500 ? limaces = this.getRandomInt(2) : limaces = 0;
-            //// LIMITER À UN ACCORDÉON ET À UN TRAFIC
+            //// LIMITER À UN ACCORDÉON ET À UN TRAFIC ET À UN TROU DE VERRE
             let indAcc = -1;
             let indTraf = -1;
+            let indTrouDeVerre = -1;
+
             for (let i = 0; i < this.niveau.length; i++) {
                 if (this.niveau[i].element.type == 'accordeon') {
                     indAcc = i;
                 }
                 if (this.niveau[i].element.type == 'trafic') {
                     indTraf = i;
+                }
+                if (this.niveau[i].element.type == 'trouDeVerre') {
+                    indTrouDeVerre = i;
                 }
             }
             //// À PARTIR DE 12000 LIMITER À UN ACCORDÉON : L'AFFICHER OU AFFICHER UN CHOU À LA PLACE
@@ -501,6 +507,22 @@ class Main {
                 }
                 // S'IL EXISTE NE PAS L'AJOUTER
                 trafic = 0;
+            }
+            //// À PARTIR DE 1000 LIMITER À UN TROU DE VERRE : L'AFFICHER OU AFFICHER UN MAIRE À LA PLACE
+            let trouDeVerre;
+            this.enrichissement > 1000 ? trouDeVerre = this.getRandomInt(2) : trouDeVerre = 0;
+            if (indTrouDeVerre == -1) {
+                if (trouDeVerre == 1) {
+                    let tdv = new TrouDeVerreEl('./img/wormhole.png', 35 + this.ratio, 35 + this.ratio, this.plateau, 0, 0)
+                    this.niveau.push(tdv);
+                }
+            } else {
+                if (trouDeVerre == 0) {
+                    let maire = new MaireEl('./img/cosmonaute.png', 28 + this.ratio, 32 + this.ratio, this.plateau, 0, 0)
+                    this.niveau[indTrouDeVerre] = maire;
+                }
+                // S'IL EXISTE NE PAS L'AJOUTER
+                trouDeVerre = 0;
             }
 
             let choux = this.getRandomInt(2);
@@ -649,9 +671,9 @@ class Main {
         // FOND HORS/INTRO JEU
         if (this.tps <= 0 || this.enAttente) {
             if (this.copy == 1) this.ctx.globalAlpha = 0.3;
+            if (this.plateau.isLoading) this.ctx.globalAlpha = 0;
             this.avecCurseur();
         }
-
         this.ctx.drawImage(this.plateau.getFond(), 0, 0, this.plateau.getWidth(), this.plateau.getHeight());
         if (this.copy == 1) {
             if (this.tpsBloque == -1) {} else {
@@ -719,8 +741,9 @@ class Main {
                 this.hero.sourisContenu();
             } else this.hero.contenu();
 
-            if (this.tps > 0) this.ctx.drawImage(this.hero.getImage(), this.hero.getPositionX(), this.hero.getPositionY(), this.hero.getW(), this.hero.getH());
-
+            if (this.plateau.isLoading) {} else {
+                if (this.tps > 0) this.ctx.drawImage(this.hero.getImage(), this.hero.getPositionX(), this.hero.getPositionY(), this.hero.getW(), this.hero.getH());
+            }
             // SCORE
             this.tourne ?
                 this.animerTxtScore() :
@@ -775,9 +798,16 @@ class Main {
                 this.gagne = true;
                 this.setStorage();
             } else if (this.tps === this.car) {
-                this.ctx.fillText(this.trad.preparezLaSoupe[this.langue], this.w / 2, this.h / 2);
+
+                if (this.plateau.isLoading) {
+                    this.ctx.fillText(this.trad.chargementPct[this.langue], this.w / 2, this.h / 2);
+                } else this.ctx.fillText(this.trad.preparezLaSoupe[this.langue], this.w / 2, this.h / 2);
+
                 this.iconePeriph();
-                this.ctx.fillText(this.trad.cliquezAuCentr[this.langue], this.w / 2, this.h - this.hero.getH());
+                if (this.plateau.isLoading) {
+                    this.loading.length > 4 ? this.loading = '. ' : this.loading += '. '
+                    this.ctx.fillText(this.loading, this.w / 2, this.h - this.hero.getH());
+                } else this.ctx.fillText(this.trad.cliquezAuCentr[this.langue], this.w / 2, this.h - this.hero.getH());
             } else if (this.tps < 0) {
                 this.audio.getStopVite();
                 if (this.vies > 0 && this.hero.isVisible()) {
@@ -1011,8 +1041,13 @@ class Main {
             }
             // COLLISION AVEC LE HERO
             if (this.intersects(this.hero, this.niveau[i])) {
-                // COLLISION CHOU
-                if (this.niveau[i].type() === "chou") {
+                // COLLISION TROU DE VERRE
+                if (this.niveau[i].type() === "trouDeVerre") {
+                    this.niveau[i].setVisible(false);
+                    this.plateau.setFond(this.getRandomInt(this.ttImages));
+                    // AUDIO
+                    this.audio.getTrouDeVerre();
+                } else if (this.niveau[i].type() === "chou") {
                     this.niveau[i].setVisible(false);
                     this.NbreChoux -= 1;
                     this.addScore(200);
@@ -1224,103 +1259,106 @@ class Main {
         }
 
         function updateStatus() {
-            if (!haveEvents) {
-                scangamepads();
-            }
-            let i = 0;
-            let j;
+            if (o.plateau.isLoading) {} else {
 
-            for (j in controllers) {
-                let controller = controllers[j];
-                // LISTER LES BOUTONS ET ÉTATS
-                // for (i = 0; i < controller.buttons.length; i++) {
-                //     console.log(i + ' _Valeur ' + controller.buttons[i].val + ' _Pressé ' + controller.buttons[i].pressed)
-                // }
+                if (!haveEvents) {
+                    scangamepads();
+                }
+                let i = 0;
+                let j;
 
-                // BOUTON POUR DÉMARRER
-                if (controller.buttons[0].pressed) {
+                for (j in controllers) {
+                    let controller = controllers[j];
+                    // LISTER LES BOUTONS ET ÉTATS
+                    // for (i = 0; i < controller.buttons.length; i++) {
+                    //     console.log(i + ' _Valeur ' + controller.buttons[i].val + ' _Pressé ' + controller.buttons[i].pressed)
+                    // }
+
+                    // BOUTON POUR DÉMARRER
+                    if (controller.buttons[0].pressed) {
+                        // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
+                        if (o.copy == 1 && o.timer === undefined) {
+                            // CPTE A REBOURD 1S
+                            o.timer = setInterval(function() {
+                                o.tempo();
+                            }, 1000);
+                            //o.audio.getMusique();
+                        }
+                        // CLIQUER POUR RELANCER PENDANT 5 SEC.
+                        if (o.copy == 1 && (o.tps > o.car - 5 || o.tps <= 0)) {
+                            // RETIRE LE SCORE COURANT SI LA PARTIE EST COMMENCEE
+                            if (o.tps > o.car - 5) {
+                                o.retScore(o.scoreTemporaire);
+                            }
+                            // SI GAGNÉ => NOUVEAU NIVEAU
+                            if (o.gagne) {
+                                o.nouveauNiveau();
+                            }
+                            o.hero.setVisible(true);
+                            o.NbreChoux = o.QteChoux;
+                            o.tps = o.car;
+                            o.vite = false;
+                            o.raz();
+                            o.recharger();
+                            o.extraDebut();
+                        }
+                    }
+
+                    // H [1]=-1 B[1]=1 G[0]=1 D[0]=1 
+                    // RÉCUPÉRER LA CORRESPONDANCE CLAVIER
+                    let app = 0;
+                    let relache = 0;
+                    if (o.tps >= 0 && o.copy == 1) {
+
+                        if (controller.axes[0] == -1) {
+                            o.hero.gauche(true);
+                            app = 37;
+                            relache = 1;
+                        }
+                        if (controller.axes[0] == 1) {
+                            o.hero.droite(true);
+                            app = 39;
+                            relache = 1;
+                        }
+                        if (controller.axes[1] == -1) {
+                            o.hero.haut(true);
+                            app = 38;
+                            relache = 1;
+                        }
+                        if (controller.axes[1] == 1) {
+                            o.hero.bas(true);
+                            app = 40;
+                            relache = 1;
+                        }
+                        if (relache == 1) o.clavierSouris = 2;
+                    }
+                    // AJOUTER DE LA VÉLOCITÉ
+                    if (o.touche == app) {
+                        o.hero.veloPlusMan();
+                    } else {
+                        o.touche = app;
+                        o.hero.veloRAZ();
+                    }
                     // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
-                    if (o.copy == 1 && o.timer === undefined) {
+                    if (o.timer === undefined && o.copy == 1) {
+                        o.extraDebut();
                         // CPTE A REBOURD 1S
                         o.timer = setInterval(function() {
                             o.tempo();
                         }, 1000);
                         //o.audio.getMusique();
                     }
-                    // CLIQUER POUR RELANCER PENDANT 5 SEC.
-                    if (o.copy == 1 && (o.tps > o.car - 5 || o.tps <= 0)) {
-                        // RETIRE LE SCORE COURANT SI LA PARTIE EST COMMENCEE
-                        if (o.tps > o.car - 5) {
-                            o.retScore(o.scoreTemporaire);
-                        }
-                        // SI GAGNÉ => NOUVEAU NIVEAU
-                        if (o.gagne) {
-                            o.nouveauNiveau();
-                        }
-                        o.hero.setVisible(true);
-                        o.NbreChoux = o.QteChoux;
-                        o.tps = o.car;
-                        o.vite = false;
-                        o.raz();
-                        o.recharger();
-                        o.extraDebut();
+                    // RELACHE
+                    if (o.clavierSouris == 2 && relache == 0) {
+                        o.hero.gauche(false);
+                        o.hero.droite(false);
+                        o.hero.haut(false);
+                        o.hero.bas(false);
+                        o.clavierSouris = 0;
                     }
                 }
-
-                // H [1]=-1 B[1]=1 G[0]=1 D[0]=1 
-                // RÉCUPÉRER LA CORRESPONDANCE CLAVIER
-                let app = 0;
-                let relache = 0;
-                if (o.tps >= 0 && o.copy == 1) {
-
-                    if (controller.axes[0] == -1) {
-                        o.hero.gauche(true);
-                        app = 37;
-                        relache = 1;
-                    }
-                    if (controller.axes[0] == 1) {
-                        o.hero.droite(true);
-                        app = 39;
-                        relache = 1;
-                    }
-                    if (controller.axes[1] == -1) {
-                        o.hero.haut(true);
-                        app = 38;
-                        relache = 1;
-                    }
-                    if (controller.axes[1] == 1) {
-                        o.hero.bas(true);
-                        app = 40;
-                        relache = 1;
-                    }
-                    if (relache == 1) o.clavierSouris = 2;
-                }
-                // AJOUTER DE LA VÉLOCITÉ
-                if (o.touche == app) {
-                    o.hero.veloPlusMan();
-                } else {
-                    o.touche = app;
-                    o.hero.veloRAZ();
-                }
-                // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
-                if (o.timer === undefined && o.copy == 1) {
-                    o.extraDebut();
-                    // CPTE A REBOURD 1S
-                    o.timer = setInterval(function() {
-                        o.tempo();
-                    }, 1000);
-                    //o.audio.getMusique();
-                }
-                // RELACHE
-                if (o.clavierSouris == 2 && relache == 0) {
-                    o.hero.gauche(false);
-                    o.hero.droite(false);
-                    o.hero.haut(false);
-                    o.hero.bas(false);
-                    o.clavierSouris = 0;
-                }
+                requestAnimationFrame(updateStatus);
             }
-            requestAnimationFrame(updateStatus);
         }
 
         function scangamepads() {
@@ -1344,145 +1382,154 @@ class Main {
 
         // ÉCOUTEURS MOBILE BOUGE
         can.addEventListener('touchmove', function(e) {
-            e.preventDefault();
-            if ((o.tps == o.car || o.tps <= 0) && !o.pauseMobile && o.copy == 1) {
-                // SI GAGNÉ => NOUVEAU NIVEAU
-                if (o.gagne) {
-                    o.nouveauNiveau();
-                }
-                o.hero.setVisible(true);
-                o.NbreChoux = o.QteChoux;
-                o.tps = o.car;
-                o.vite = false;
-                o.raz();
-                o.recharger();
-                o.extraDebut();
-            } else {
-                // SAVOIR l'ORIENTATION DU MOBILE
-                let orientation = screen.msOrientation || (screen.orientation || screen.mozOrientation || {}).type; // ITÉRER À TRAVERS LES POINTS DE CONTACT QUI ONT BOUGÉ.
-                for (let i = 0; i < e.changedTouches.length; i++) {
+            if (o.plateau.isLoading) {} else {
+                e.preventDefault();
+                if ((o.tps == o.car || o.tps <= 0) && !o.pauseMobile && o.copy == 1) {
+                    // SI GAGNÉ => NOUVEAU NIVEAU
+                    if (o.gagne) {
+                        o.nouveauNiveau();
+                    }
+                    o.hero.setVisible(true);
+                    o.NbreChoux = o.QteChoux;
+                    o.tps = o.car;
+                    o.vite = false;
+                    o.raz();
+                    o.recharger();
+                    o.extraDebut();
+                } else {
+                    // SAVOIR l'ORIENTATION DU MOBILE
+                    let orientation = screen.msOrientation || (screen.orientation || screen.mozOrientation || {}).type; // ITÉRER À TRAVERS LES POINTS DE CONTACT QUI ONT BOUGÉ.
+                    for (let i = 0; i < e.changedTouches.length; i++) {
 
-                    if (orientation === "portrait-secondary" || orientation === "portrait-primary" || orientation === undefined) {
-                        // RÉCUPÉRER LA POSITION
-                        o.hero.setPositionX(e.changedTouches[i].pageX - o.hero.getW() / 2);
-                        o.hero.setPositionY(e.changedTouches[i].pageY - o.hero.getH() / 2);
-                    } else {
-                        // RÉCUPÉRER LA POSITION
-                        o.hero.setPositionX(e.changedTouches[i].pageX - o.hero.getW() * 3);
-                        o.hero.setPositionY(e.changedTouches[i].pageY - o.hero.getH());
+                        if (orientation === "portrait-secondary" || orientation === "portrait-primary" || orientation === undefined) {
+                            // RÉCUPÉRER LA POSITION
+                            o.hero.setPositionX(e.changedTouches[i].pageX - o.hero.getW() / 2);
+                            o.hero.setPositionY(e.changedTouches[i].pageY - o.hero.getH() / 2);
+                        } else {
+                            // RÉCUPÉRER LA POSITION
+                            o.hero.setPositionX(e.changedTouches[i].pageX - o.hero.getW() * 3);
+                            o.hero.setPositionY(e.changedTouches[i].pageY - o.hero.getH());
+                        }
                     }
                 }
+                e.stopPropagation();
             }
-            e.stopPropagation();
-
         }, { passive: false });
         // ÉCOUTEURS MOBILE NE BOUGE PLUS
         can.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            // GÉRER LES PAUSES QUAND C'EST PERDU OU GAGNÉ
-            if (o.pauseMobile) o.pauseMobile = false;
-            e.stopPropagation();
+            if (o.plateau.isLoading) {} else {
+                e.preventDefault();
+                // GÉRER LES PAUSES QUAND C'EST PERDU OU GAGNÉ
+                if (o.pauseMobile) o.pauseMobile = false;
+                e.stopPropagation();
+            }
         }, { passive: false });
 
         // ÉCOUTEURS MOBILE COMMENCE À BOUGER
         can.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
-            if (o.timer === undefined && o.copy == 1) {
-                o.extraDebut();
-                // CPTE A REBOURD 1S
-                o.timer = setInterval(function() {
-                    o.tempo();
-                }, 1000);
-                //o.audio.getMusique();
+            if (o.plateau.isLoading) {} else {
+                e.preventDefault();
+                // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
+                if (o.timer === undefined && o.copy == 1) {
+                    o.extraDebut();
+                    // CPTE A REBOURD 1S
+                    o.timer = setInterval(function() {
+                        o.tempo();
+                    }, 1000);
+                    //o.audio.getMusique();
+                }
+                e.stopPropagation();
             }
-            e.stopPropagation();
         }, { passive: false });
 
 
         // ÉCOUTEURS CLAVIER
         document.addEventListener("keydown", function(evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            o.clavierSouris = 0;
-            // AJOUTER DE LA VÉLOCITÉ
-            if (o.touche == evt.keyCode) {
-                o.hero.veloPlus();
-            } else {
-                o.touche = evt.keyCode;
-                o.hero.veloRAZ();
-            }
-            // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
-            if (o.timer === undefined && o.copy == 1) {
-                o.extraDebut();
-                // CPTE A REBOURD 1S
-                o.timer = setInterval(function() {
-                    o.tempo();
-                }, 1000);
-                //o.audio.getMusique();
-            }
-            if (o.tps >= 0 && o.copy == 1) {
-                if (evt.keyCode === 37) {
-                    o.hero.gauche(true);
+            if (o.plateau.isLoading) {} else {
+                evt.preventDefault();
+                evt.stopPropagation();
+                o.clavierSouris = 0;
+                // AJOUTER DE LA VÉLOCITÉ
+                if (o.touche == evt.keyCode) {
+                    o.hero.veloPlus();
+                } else {
+                    o.touche = evt.keyCode;
+                    o.hero.veloRAZ();
                 }
-                if (evt.keyCode === 39) {
-                    o.hero.droite(true);
+                // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
+                if (o.timer === undefined && o.copy == 1) {
+                    o.extraDebut();
+                    // CPTE A REBOURD 1S
+                    o.timer = setInterval(function() {
+                        o.tempo();
+                    }, 1000);
+                    //o.audio.getMusique();
                 }
-                if (evt.keyCode === 38) {
-                    o.hero.haut(true);
+                if (o.tps >= 0 && o.copy == 1) {
+                    if (evt.keyCode === 37) {
+                        o.hero.gauche(true);
+                    }
+                    if (evt.keyCode === 39) {
+                        o.hero.droite(true);
+                    }
+                    if (evt.keyCode === 38) {
+                        o.hero.haut(true);
+                    }
+                    if (evt.keyCode === 40) {
+                        o.hero.bas(true);
+                    }
                 }
-                if (evt.keyCode === 40) {
-                    o.hero.bas(true);
+                // APPUYER SUR ESPACE POUR RELANCER PENDANT 5 SEC.
+                if (evt.keyCode === 32 && o.copy == 1 && (o.tps > o.car - 5 || o.tps <= 0)) {
+                    // RETIRE LE SCORE COURANT SI LA PARTIE EST COMMENCEE
+                    if (o.tps > o.car - 5) {
+                        o.retScore(o.scoreTemporaire);
+                    }
+                    // SI GAGNÉ => NOUVEAU NIVEAU
+                    if (o.gagne) {
+                        o.nouveauNiveau();
+                    }
+                    o.hero.setVisible(true);
+                    o.NbreChoux = o.QteChoux;
+                    o.tps = o.car;
+                    o.vite = false;
+                    o.raz();
+                    o.recharger();
+                    o.extraDebut();
                 }
-            }
-            // APPUYER SUR ESPACE POUR RELANCER PENDANT 5 SEC.
-            if (evt.keyCode === 32 && o.copy == 1 && (o.tps > o.car - 5 || o.tps <= 0)) {
-                // RETIRE LE SCORE COURANT SI LA PARTIE EST COMMENCEE
-                if (o.tps > o.car - 5) {
-                    o.retScore(o.scoreTemporaire);
-                }
-                // SI GAGNÉ => NOUVEAU NIVEAU
-                if (o.gagne) {
-                    o.nouveauNiveau();
-                }
-                o.hero.setVisible(true);
-                o.NbreChoux = o.QteChoux;
-                o.tps = o.car;
-                o.vite = false;
-                o.raz();
-                o.recharger();
-                o.extraDebut();
             }
         });
         document.addEventListener("keyup", function(evt) {
-            o.ctx.canvas.style.cursor = "auto";
-            // AJOUTER DE LA VÉLOCITÉ ?
-            if (o.touche === evt.keyCode) {
-                o.hero.veloPlus();
-            } else {
-                o.touche = evt.keyCode;
-                o.hero.veloRAZ();
-            }
-            if (evt.keyCode === 37) o.hero.gauche(false);
-            if (evt.keyCode === 39) o.hero.droite(false);
-            if (evt.keyCode === 38) o.hero.haut(false);
-            if (evt.keyCode === 40) o.hero.bas(false);
-            if (evt.keyCode === 27) {
-                window.api.send('envoi-reduire');
-            }
-            if (o.meilleur && o.copy == 1 && o.tps == 0) {
-                if (evt.keyCode == 8) {
-                    o.nomMeilleur = o.nomMeilleur.slice(0, -1);
-                } else if (evt.keyCode == 46) {
-                    o.nomMeilleur = '';
+            if (o.plateau.isLoading) {} else {
+                o.ctx.canvas.style.cursor = "auto";
+                // AJOUTER DE LA VÉLOCITÉ ?
+                if (o.touche === evt.keyCode) {
+                    o.hero.veloPlus();
                 } else {
-                    if (evt.keyCode == 32) {} else {
-                        if (evt.key.length == 1 && evt.key.match(/^[\w\s]+$/) && o.nomMeilleur.length < 11) {
-                            o.nomMeilleur += evt.key;
+                    o.touche = evt.keyCode;
+                    o.hero.veloRAZ();
+                }
+                if (evt.keyCode === 37) o.hero.gauche(false);
+                if (evt.keyCode === 39) o.hero.droite(false);
+                if (evt.keyCode === 38) o.hero.haut(false);
+                if (evt.keyCode === 40) o.hero.bas(false);
+                if (evt.keyCode === 27) {
+                    window.api.send('envoi-reduire');
+                }
+                if (o.meilleur && o.copy == 1 && o.tps == 0) {
+                    if (evt.keyCode == 8) {
+                        o.nomMeilleur = o.nomMeilleur.slice(0, -1);
+                    } else if (evt.keyCode == 46) {
+                        o.nomMeilleur = '';
+                    } else {
+                        if (evt.keyCode == 32) {} else {
+                            if (evt.key.length == 1 && evt.key.match(/^[\w\s]+$/) && o.nomMeilleur.length < 11) {
+                                o.nomMeilleur += evt.key;
+                            }
                         }
                     }
+                    o.setMeilleur();
                 }
-                o.setMeilleur();
             }
         })
 
@@ -1498,33 +1545,35 @@ class Main {
         });
 
         o.ctx.canvas.addEventListener("click", e => {
-            e.preventDefault();
-            e.stopPropagation();
-            // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
-            if (o.copy == 1 && o.timer === undefined) {
-                // CPTE A REBOURD 1S
-                o.timer = setInterval(function() {
-                    o.tempo();
-                }, 1000);
-                //o.audio.getMusique();
-            }
-            // CLIQUER POUR RELANCER PENDANT 5 SEC.
-            if (o.copy == 1 && (o.tps > o.car - 5 || o.tps <= 0)) {
-                // RETIRE LE SCORE COURANT SI LA PARTIE EST COMMENCEE
-                if (o.tps > o.car - 5) {
-                    o.retScore(o.scoreTemporaire);
+            if (o.plateau.isLoading) {} else {
+                e.preventDefault();
+                e.stopPropagation();
+                // REGLES DU JEU & POUR CHROME CHARGEMENT DE LA MUSIQUE
+                if (o.copy == 1 && o.timer === undefined) {
+                    // CPTE A REBOURD 1S
+                    o.timer = setInterval(function() {
+                        o.tempo();
+                    }, 1000);
+                    //o.audio.getMusique();
                 }
-                // SI GAGNÉ => NOUVEAU NIVEAU
-                if (o.gagne) {
-                    o.nouveauNiveau();
+                // CLIQUER POUR RELANCER PENDANT 5 SEC.
+                if (o.copy == 1 && (o.tps > o.car - 5 || o.tps <= 0)) {
+                    // RETIRE LE SCORE COURANT SI LA PARTIE EST COMMENCEE
+                    if (o.tps > o.car - 5) {
+                        o.retScore(o.scoreTemporaire);
+                    }
+                    // SI GAGNÉ => NOUVEAU NIVEAU
+                    if (o.gagne) {
+                        o.nouveauNiveau();
+                    }
+                    o.hero.setVisible(true);
+                    o.NbreChoux = o.QteChoux;
+                    o.tps = o.car;
+                    o.vite = false;
+                    o.raz();
+                    o.recharger();
+                    o.extraDebut();
                 }
-                o.hero.setVisible(true);
-                o.NbreChoux = o.QteChoux;
-                o.tps = o.car;
-                o.vite = false;
-                o.raz();
-                o.recharger();
-                o.extraDebut();
             }
         });
     }
@@ -1605,6 +1654,10 @@ class Main {
 
 
         clearInterval(this.fps);
+        this.nouvelleImage();
+    }
+
+    nouvelleImage() {
         let i = this.plateau.getIFond();
         let j = i;
         while (j === i) {
