@@ -1,7 +1,7 @@
 {
     "name": "choux",
     "productName": "Choux",
-    "version": "1.22.0",
+    "version": "1.23.0",
     "description": "Jeu Windows",
     "homepage": "https://github.com/Lob2018/Choux-Win#readme",
     "repository": "github:Lob2018/Choux-Win",
@@ -53,16 +53,16 @@
         }
     },
     "dependencies": {
-        "@octokit/request": "^5.6.3",
+        "@octokit/request": "^6.2.0",
         "electron-squirrel-startup": "^1.0.0"
     },
     "devDependencies": {
-        "@electron-forge/cli": "^6.0.0-beta.63",
-        "@electron-forge/maker-deb": "^6.0.0-beta.63",
-        "@electron-forge/maker-rpm": "^6.0.0-beta.63",
-        "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
-        "@electron-forge/maker-zip": "^6.0.0-beta.63",
-        "electron": "^19.0.1",
+        "@electron-forge/cli": "^6.0.0-beta.65",
+        "@electron-forge/maker-deb": "^6.0.0-beta.65",
+        "@electron-forge/maker-rpm": "^6.0.0-beta.65",
+        "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
+        "@electron-forge/maker-zip": "^6.0.0-beta.65",
+        "electron": "^20.0.1",
         "spectron": "^19.0.0"
     }
 }
